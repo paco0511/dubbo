@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="com.deepexi.deepexi.mapper.UserMapper">
+    <resultMap type="com.deepexi.deepexi.domain.dto.UserDto" id="UserDtoResult">
+        <result property="id" column="id" />
+        <result property="code" column="code" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="name" column="name" />
+        <result property="status" column="status" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="systemTenant" column="system_tenant" />
+        <result property="domain" column="domain" />
+        <result property="dr" column="dr" />
+    </resultMap>
+    <sql id="Base_Column_List">
+      id,      code,      create_by,      create_time,      name,      status,      update_by,      update_time,      system_tenant,      domain,      dr    </sql>
+    <select id="findList" resultType="com.deepexi.deepexi.domain.eo.User">
+        SELECT * FROM user WHERE 1=1
+    </select>
+
+    <update id="delete">
+        UPDATE user set dr=1 where id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="find" resultType="com.deepexi.deepexi.domain.eo.User">
+        SELECT * FROM user WHERE id =#{pk}
+    </select>
+
+</mapper>
